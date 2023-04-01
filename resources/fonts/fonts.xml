@@ -1,0 +1,8 @@
+<fonts>
+    <font id="id_segments80" filename="segments80.fnt" antialias="true" filter="#1234567890:" />
+    <font id="id_icons" filename="icons.fnt" antialias="false" filter="hH01234567" />
+    <font id="id_led" filename="led.fnt" antialias="false" filter="0123456789-" />
+    <font id="id_smol" filename="smol.fnt" antialias="false" />
+    <font id="id_xsmol" filename="xsmol.fnt" antialias="false" />
+    <font id="id_moon" filename="moon.fnt" antialias="true" />
+</fonts>
