@@ -10,4 +10,5 @@
     <bitmap id="w_snow" filename="w_snow.png" />
     <bitmap id="w_light_snow" filename="w_light_snow.png" />
     <bitmap id="w_default" filename="w_default.png" />
+    <bitmap id="sun_up_down" filename="sun_up_down.png" />
 </drawables>

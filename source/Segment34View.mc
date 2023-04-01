@@ -44,11 +44,12 @@ class Segment34View extends WatchUi.WatchFace {
         setMoon(dc);
         setHR(dc);
         setHRIcons(dc);
-        setBatt(dc);
-        setNotif(dc);
         setWeather(dc);
+        setSunUpDown(dc);
         setDate(dc);
+        setNotif(dc);
         setStep(dc);
+        setBatt(dc);
 
         View.onUpdate(dc);
 
@@ -174,6 +175,24 @@ class Segment34View extends WatchUi.WatchFace {
                 icon = Application.loadResource( Rez.Drawables.w_default ) as BitmapResource;
         }
         dc.drawBitmap(100, 23, icon);
+
+        var SunUpDownIcon = Application.loadResource( Rez.Drawables.sun_up_down ) as BitmapResource;
+        dc.drawBitmap(213, 62, SunUpDownIcon);
+    }
+
+    hidden function setSunUpDown(dc) as Void {
+        var sunUpLabel = View.findDrawableById("SunUpLabel") as Text;
+        var sunDownLabel = View.findDrawableById("SunDownLabel") as Text;
+        var now = Time.now();
+        var ume = new Position.Location({
+            :latitude => 63.8258,
+            :longitude => 20.2630,
+            :format => :degrees
+        });
+        var sunrise = Time.Gregorian.info(Weather.getSunrise(ume, now), Time.FORMAT_SHORT);
+        var sunset = Time.Gregorian.info(Weather.getSunset(ume, now), Time.FORMAT_SHORT);
+        sunUpLabel.setText(sunrise.hour.format(INTEGER_FORMAT));
+        sunDownLabel.setText(sunset.hour.format(INTEGER_FORMAT));
     }
 
     hidden function setNotif(dc) as Void {
