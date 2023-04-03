@@ -327,22 +327,22 @@ class Segment34View extends WatchUi.WatchFace {
         var lunar_cycle = 29.53;
         var phase = ((days_since_new_moon / lunar_cycle) * 100).toNumber() % 100;
         var into_cycle = (phase / 100.0) * lunar_cycle;
-
-        if (into_cycle < 2.5) {
+        //into_cycle = time.sec % 30;
+        if (into_cycle < 3) { // 2+1
             return "0";
-        } else if (into_cycle < 5) {
+        } else if (into_cycle < 6) { // 4
             return "1";
-        } else if (into_cycle < 8) {
+        } else if (into_cycle < 10) { // 4
             return "2";
-        } else if (into_cycle < 13) {
+        } else if (into_cycle < 14) { // 4
             return "3";
-        } else if (into_cycle < 17) {
+        } else if (into_cycle < 18) { // 4
             return "4";
-        } else if (into_cycle < 20) {
+        } else if (into_cycle < 22) { // 4
             return "5";
-        } else if (into_cycle < 23) {
+        } else if (into_cycle < 26) { // 4
             return "6";
-        } else if (into_cycle < 26) {
+        } else if (into_cycle < 29) { // 3
             return "7";
         } else {
             return "0";
