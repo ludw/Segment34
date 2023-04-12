@@ -11,6 +11,7 @@ The watchface features the following:
  - Weather (conditions, temperature and windspeed)
  - Sunrise/Sunset
  - Date, week number
+ - Notification count
  - Time to recovery
  - Active minutes per week
  - Steps
