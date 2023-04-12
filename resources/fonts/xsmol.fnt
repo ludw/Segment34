@@ -1,5 +1,5 @@
 info face="XSmol" size=5 bold=0 italic=0 smooth=1 spacing=1,1
-common lineHeight=20 base=5 scaleW=179 scaleH=13 pages=1
+common lineHeight=5 base=5 scaleW=179 scaleH=13 pages=1
 page id=0 file="xsmol.png"
 chars count=30
 

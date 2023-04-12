@@ -13,6 +13,8 @@ const INTEGER_FORMAT = "%d";
 class Segment34View extends WatchUi.WatchFace {
 
     private var isSleeping = false;
+    private var lastCondition = null;
+    private var lastUpdate = null;
 
     function initialize() {
         WatchFace.initialize();
@@ -33,6 +35,18 @@ class Segment34View extends WatchUi.WatchFace {
     function onUpdate(dc as Dc) as Void {
         // Get and show the current time
         var clockTime = System.getClockTime();
+        var now = Time.now().value();
+
+        if(clockTime.sec % 2 == 0) {
+            setHR(dc);
+            setNotif(dc);
+        }
+        
+        if(lastUpdate != null && now - lastUpdate < 30 && clockTime.sec % 60 != 0) {
+            View.onUpdate(dc);
+            setWeatherIcon(dc);
+            return;
+        }
         var timeString = Lang.format("$1$:$2$", [clockTime.hour.format("%02d"), clockTime.min.format("%02d")]);
         var timelabel = View.findDrawableById("TimeLabel") as Text;
         timelabel.setText(timeString);
@@ -42,18 +56,19 @@ class Segment34View extends WatchUi.WatchFace {
         timebg.setText("#####");
         
         setMoon(dc);
-        setHR(dc);
         setHRIcons(dc);
         setWeather(dc);
         setSunUpDown(dc);
         setDate(dc);
-        setNotif(dc);
         setStep(dc);
+        setTraining(dc);
         setBatt(dc);
+       
 
         View.onUpdate(dc);
-
         setWeatherIcon(dc);
+
+        lastUpdate = now;
     }
 
     function onPartialUpdate(dc) {
@@ -120,6 +135,7 @@ class Segment34View extends WatchUi.WatchFace {
 
     hidden function setWeather(dc) as Void {
         var weather = Weather.getCurrentConditions();
+        lastCondition = weather.condition;
 
         var temp = weather.temperature.format(INTEGER_FORMAT);
         var tempLabel = View.findDrawableById("TempLabel") as Text;
@@ -139,10 +155,12 @@ class Segment34View extends WatchUi.WatchFace {
     }
 
     hidden function setWeatherIcon(dc) as Void {
-        var weather = Weather.getCurrentConditions();
         var icon;
+        if(lastCondition == null) {
+            return;
+        }
 
-        switch(weather.condition) {
+        switch(lastCondition) {
             case Weather.CONDITION_CLEAR:
                 icon = Application.loadResource( Rez.Drawables.w_clear ) as BitmapResource;
                 break;
@@ -223,8 +241,32 @@ class Segment34View extends WatchUi.WatchFace {
 
     hidden function setStep(dc) as Void {
         var stepLabel = View.findDrawableById("StepLabel") as Text;
-        var stepCount = ActivityMonitor.getInfo().steps.toString();
+        var stepCount = ActivityMonitor.getInfo().steps.format("%05d");
         stepLabel.setText(stepCount);
+    }
+
+
+    hidden function setTraining(dc) as Void {
+        var TTRDesc = View.findDrawableById("TTRDesc") as Text;
+        var TTRLabel = View.findDrawableById("TTRLabel") as Text;
+        var TTRReady = View.findDrawableById("TTRReady") as Text;
+        if(ActivityMonitor.getInfo().timeToRecovery == null || ActivityMonitor.getInfo().timeToRecovery == 0) {
+            TTRReady.setText("FULLY\nRECOVERED");
+            TTRLabel.setText("");
+            TTRDesc.setText("");
+        } else { 
+            TTRReady.setText("");
+            TTRDesc.setText("HOURS TO\nRECOVERY");
+
+            var ttr = ActivityMonitor.getInfo().timeToRecovery.format("%03d");
+            TTRLabel.setText(ttr);
+        }
+        
+        var ActiveDesc = View.findDrawableById("ActiveDesc") as Text;
+        ActiveDesc.setText("WEEKLY\nACTIVE MIN");
+        var ActiveLabel = View.findDrawableById("ActiveLabel") as Text;
+        var active = ActivityMonitor.getInfo().activeMinutesWeek.total.format("%03d");
+        ActiveLabel.setText(active);
     }
 
 
