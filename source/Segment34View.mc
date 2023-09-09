@@ -135,7 +135,9 @@ class Segment34View extends WatchUi.WatchFace {
 
     hidden function setWeather(dc) as Void {
         var weather = Weather.getCurrentConditions();
+        if (weather == null) { return; }
         lastCondition = weather.condition;
+        if(lastCondition == null) { return; }
 
         var temp = weather.temperature.format(INTEGER_FORMAT);
         var tempLabel = View.findDrawableById("TempLabel") as Text;
@@ -188,7 +190,9 @@ class Segment34View extends WatchUi.WatchFace {
             case Weather.CONDITION_LIGHT_SNOW:
                 icon = Application.loadResource( Rez.Drawables.w_light_snow ) as BitmapResource;
                 break;
-            
+            case Weather.CONDITION_FOG:
+                icon = Application.loadResource( Rez.Drawables.w_fog ) as BitmapResource;
+                break;
             default:
                 icon = Application.loadResource( Rez.Drawables.w_default ) as BitmapResource;
         }
