@@ -7,6 +7,7 @@ import Toybox.Application;
 import Toybox.Weather;
 import Toybox.Time;
 import Toybox.Math;
+import Toybox.SensorHistory;
 
 const INTEGER_FORMAT = "%d";
 
@@ -63,8 +64,8 @@ class Segment34View extends WatchUi.WatchFace {
         setStep(dc);
         setTraining(dc);
         setBatt(dc);
+        setStressAndBodyBattery(dc);
        
-
         View.onUpdate(dc);
         setWeatherIcon(dc);
 
@@ -249,6 +250,20 @@ class Segment34View extends WatchUi.WatchFace {
         stepLabel.setText(stepCount);
     }
 
+    hidden function setStressAndBodyBattery(dc) as Void {
+        var stressLabel = View.findDrawableById("StressLabel") as Text;
+        var bodyBattLabel = View.findDrawableById("BodyBattLabel") as Text;
+
+        if ((Toybox has :SensorHistory) && (Toybox.SensorHistory has :getBodyBatteryHistory) && (Toybox.SensorHistory has :getStressHistory)) {
+            // Set up the method with parameters
+            var bbIterator = Toybox.SensorHistory.getBodyBatteryHistory({:period => 1});
+            var stIterator = Toybox.SensorHistory.getStressHistory({:period => 1});
+            var bb = bbIterator.next();
+            var st = stIterator.next();
+            if(bb != null) { bodyBattLabel.setText(bb.data.format("%02d")); }
+            if(st != null) { stressLabel.setText(st.data.format("%02d")); }
+        }
+    }
 
     hidden function setTraining(dc) as Void {
         var TTRDesc = View.findDrawableById("TTRDesc") as Text;
@@ -272,7 +287,6 @@ class Segment34View extends WatchUi.WatchFace {
         var active = ActivityMonitor.getInfo().activeMinutesWeek.total.format("%03d");
         ActiveLabel.setText(active);
     }
-
 
     // Called when this View is removed from the screen. Save the
     // state of this View here. This includes freeing resources from

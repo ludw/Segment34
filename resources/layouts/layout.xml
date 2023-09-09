@@ -2,6 +2,7 @@
     <label id="WeatherCode" x="center" y="10" font="@Fonts.id_xsmol" justification="Graphics.TEXT_JUSTIFY_CENTER" color="0x005555" />
     <label id="WeatherLabel" x="center" y="29" font="@Fonts.id_smol" justification="Graphics.TEXT_JUSTIFY_CENTER" color="0xFFFFFF" />
 
+    <label id="StressLabel" x="47" y="40" font="@Fonts.id_smol" justification="Graphics.TEXT_JUSTIFY_LEFT" color="0xFFAA00" />
     <label id="HRIconR" x="76" y="32" font="@Fonts.id_icons" justification="Graphics.TEXT_JUSTIFY_LEFT" color="0xFF0000" />
     <label id="HRIconW" x="76" y="32" font="@Fonts.id_icons" justification="Graphics.TEXT_JUSTIFY_LEFT" color="0xFFFFFF" />
     <label id="WindIcon" x="177" y="32" font="@Fonts.id_icons" justification="Graphics.TEXT_JUSTIFY_CENTER" color="0xFFFFFF" />
@@ -9,6 +10,7 @@
     <label id="HRLabel" x="86" y="60" font="@Fonts.id_led" justification="Graphics.TEXT_JUSTIFY_CENTER" color="0xFFFFFF" />
     <label id="TempLabel" x="132" y="60" font="@Fonts.id_led" justification="Graphics.TEXT_JUSTIFY_CENTER" color="0xFFFFFF" />
     <label id="WindLabel" x="178" y="60" font="@Fonts.id_led" justification="Graphics.TEXT_JUSTIFY_CENTER" color="0xFFFFFF" />
+    <label id="BodyBattLabel" x="212" y="40" font="@Fonts.id_smol" justification="Graphics.TEXT_JUSTIFY_RIGHT" color="0x00AAFF" />
 
     <label id="SunUpLabel" x="228" y="63" font="@Fonts.id_smol" justification="Graphics.TEXT_JUSTIFY_LEFT" color="0xFFFFFF" />
     <label id="SunDownLabel" x="214" y="73" font="@Fonts.id_smol" justification="Graphics.TEXT_JUSTIFY_LEFT" color="0xFFFFFF" />
