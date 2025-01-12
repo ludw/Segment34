@@ -17,8 +17,8 @@ class Segment34App extends Application.AppBase {
     }
 
     // Return the initial view of your application here
-    function getInitialView() as Array<Views or InputDelegates>? {
-        return [ new Segment34View() ] as Array<Views or InputDelegates>;
+    function getInitialView() {
+        return [ new Segment34View() ] ;
     }
 
 }
