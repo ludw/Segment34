@@ -45,17 +45,19 @@ class Segment34View extends WatchUi.WatchFace {
         
         if(lastUpdate != null && now - lastUpdate < 30 && clockTime.sec % 60 != 0) {
             View.onUpdate(dc);
+            setStressAndBodyBattery(dc);
             setWeatherIcon(dc);
             return;
         }
         var timeString = Lang.format("$1$:$2$", [clockTime.hour.format("%02d"), clockTime.min.format("%02d")]);
         var timelabel = View.findDrawableById("TimeLabel") as Text;
         timelabel.setText(timeString);
+        
 
         // time background 
         var timebg = View.findDrawableById("TimeBg") as Text;
         timebg.setText("#####");
-        
+
         setMoon(dc);
         setHRIcons(dc);
         setWeather(dc);
@@ -64,9 +66,9 @@ class Segment34View extends WatchUi.WatchFace {
         setStep(dc);
         setTraining(dc);
         setBatt(dc);
-        setStressAndBodyBattery(dc);
-       
+        
         View.onUpdate(dc);
+        setStressAndBodyBattery(dc);
         setWeatherIcon(dc);
 
         lastUpdate = now;
@@ -234,7 +236,7 @@ class Segment34View extends WatchUi.WatchFace {
         var today = Time.Gregorian.info(now, Time.FORMAT_SHORT);
         var week = iso_week_number(today.year, today.month, today.day).toString();
 
-        var value = Lang.format("$1$, $2$ $3$ $4$ (WEEK $5$)" , [
+        var value = Lang.format("$1$, $2$ $3$ $4$ (W $5$)" , [
             day_name(today.day_of_week),
             today.day,
             month_name(today.month),
@@ -251,8 +253,8 @@ class Segment34View extends WatchUi.WatchFace {
     }
 
     hidden function setStressAndBodyBattery(dc) as Void {
-        var stressLabel = View.findDrawableById("StressLabel") as Text;
-        var bodyBattLabel = View.findDrawableById("BodyBattLabel") as Text;
+        var batt = 0;
+        var stress = 0;
 
         if ((Toybox has :SensorHistory) && (Toybox.SensorHistory has :getBodyBatteryHistory) && (Toybox.SensorHistory has :getStressHistory)) {
             // Set up the method with parameters
@@ -260,8 +262,16 @@ class Segment34View extends WatchUi.WatchFace {
             var stIterator = Toybox.SensorHistory.getStressHistory({:period => 1});
             var bb = bbIterator.next();
             var st = stIterator.next();
-            if(bb != null) { bodyBattLabel.setText(bb.data.format("%02d")); }
-            if(st != null) { stressLabel.setText(st.data.format("%02d")); }
+            if(bb != null) {
+                batt = Math.round(bb.data * 0.80);
+                dc.setColor(0x00AAFF, -1);
+                dc.fillRectangle(247, 91 + (80 - batt), 4, batt);
+            }
+            if(st != null) {
+                stress = Math.round(st.data * 0.80);
+                dc.setColor(0xFFAA00, -1);
+                dc.fillRectangle(10, 91 + (80 - stress), 4, stress);
+            }
         }
     }
 
