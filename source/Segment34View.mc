@@ -209,8 +209,6 @@ class Segment34View extends WatchUi.WatchFace {
         var sunUpLabel = View.findDrawableById("SunUpLabel") as Text;
         var sunDownLabel = View.findDrawableById("SunDownLabel") as Text;
         var now = Time.now();
-        //63.8258
-        //20.2630
         var ume = new Position.Location({
             :latitude => Application.Properties.getValue("sunsetLatitude"),
             :longitude => Application.Properties.getValue("sunsetLongitude"),
