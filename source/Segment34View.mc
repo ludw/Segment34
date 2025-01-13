@@ -205,6 +205,12 @@ class Segment34View extends WatchUi.WatchFace {
             case Weather.CONDITION_FOG:
                 icon = Application.loadResource( Rez.Drawables.w_fog ) as BitmapResource;
                 break;
+            case Weather.CONDITION_THUNDERSTORMS:
+                icon = Application.loadResource( Rez.Drawables.w_thunder ) as BitmapResource;
+                break;
+            case Weather.CONDITION_SCATTERED_THUNDERSTORMS:
+                icon = Application.loadResource( Rez.Drawables.w_thunder ) as BitmapResource;
+                break;
             default:
                 icon = Application.loadResource( Rez.Drawables.w_default ) as BitmapResource;
         }
