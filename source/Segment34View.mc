@@ -151,9 +151,13 @@ class Segment34View extends WatchUi.WatchFace {
         lastCondition = weather.condition;
         if(lastCondition == null) { return; }
 
-        var temp = weather.temperature.format(INTEGER_FORMAT);
+        var tempUnit = System.getDeviceSettings().temperatureUnits;
+        var temp = weather.temperature;
         var tempLabel = View.findDrawableById("TempLabel") as Text;
-        tempLabel.setText(temp);
+        if(tempUnit != System.UNIT_METRIC) {
+            temp = (temp * 9/5) + 32;
+        }
+        tempLabel.setText(temp.format(INTEGER_FORMAT));
 
         var wind = weather.windSpeed.format(INTEGER_FORMAT);
         var windLabel = View.findDrawableById("WindLabel") as Text;
