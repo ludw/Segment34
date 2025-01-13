@@ -24,5 +24,7 @@ The watchface features the following:
  
  The build in the fenix6 folder should work for Fenix 6 and Fenix 6 Pro.
  The build in the fenix7 folder should work for Fenix 7, Fenix 7 Pro and Fenix 8 Solar 47mm.
+ The build in the fr255 folder should work for Forerunner 255 and 255 Music.
+ The build in the fr955 folder should work for Forerunner 955.
 
  Connect your watch via usb and transfer the Segment34.prg file to the GARMIN/Apps folder on the watch. 
