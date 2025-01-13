@@ -40,6 +40,7 @@ class Segment34View extends WatchUi.WatchFace {
 
         if(clockTime.sec % 2 == 0) {
             setHR(dc);
+            setHRIcons(dc);
             setNotif(dc);
         }
         
@@ -59,7 +60,6 @@ class Segment34View extends WatchUi.WatchFace {
         timebg.setText("#####");
 
         setMoon(dc);
-        setHRIcons(dc);
         setWeather(dc);
         setSunUpDown(dc);
         setDate(dc);
@@ -87,9 +87,9 @@ class Segment34View extends WatchUi.WatchFace {
 
         if (!isSleeping) {
             hrIconR.setText("H");
-            hrIconW.setText("");
+            hrIconW.setText("h");
         } else {
-            hrIconR.setText("");
+            hrIconR.setText("h");
             hrIconW.setText("H");
         }
         
@@ -207,16 +207,16 @@ class Segment34View extends WatchUi.WatchFace {
     }
 
     hidden function setSunUpDown(dc) as Void {
+        var weather = Weather.getCurrentConditions();
         var sunUpLabel = View.findDrawableById("SunUpLabel") as Text;
         var sunDownLabel = View.findDrawableById("SunDownLabel") as Text;
         var now = Time.now();
-        var ume = new Position.Location({
-            :latitude => Application.Properties.getValue("sunsetLatitude"),
-            :longitude => Application.Properties.getValue("sunsetLongitude"),
-            :format => :degrees
-        });
-        var sunrise = Time.Gregorian.info(Weather.getSunrise(ume, now), Time.FORMAT_SHORT);
-        var sunset = Time.Gregorian.info(Weather.getSunset(ume, now), Time.FORMAT_SHORT);
+        var loc = weather.observationLocationPosition;
+        if(loc == null) {
+            return;
+        }
+        var sunrise = Time.Gregorian.info(Weather.getSunrise(loc, now), Time.FORMAT_SHORT);
+        var sunset = Time.Gregorian.info(Weather.getSunset(loc, now), Time.FORMAT_SHORT);
         sunUpLabel.setText(sunrise.hour.format(INTEGER_FORMAT));
         sunDownLabel.setText(sunset.hour.format(INTEGER_FORMAT));
     }
