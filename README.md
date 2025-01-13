@@ -17,5 +17,12 @@ The watchface features the following:
  - Steps
  - Battery days remaining as bar
  
- The watchface have no settings screen and is currently not published to the IQ Connect store. To use it you have to build it yourself, this is also the only way to customise it.
+ The watchface have no settings screen and is currently not published to the IQ Connect store.
+
+## Builds
+ There are builds for Fenix watches in the builds folder.
  
+ The build in the fenix6 folder should work for Fenix 6 and Fenix 6 Pro.
+ The build in the fenix7 folder should work for Fenix 7, Fenix 7 Pro and Fenix 8 Solar 47mm.
+
+ Connect your watch via usb and transfer the Segment34.prg file to the GARMIN/Apps folder on the watch. 
