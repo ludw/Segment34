@@ -3,7 +3,7 @@
     <label id="WeatherLabel" x="center" y="29" font="@Fonts.id_smol" justification="Graphics.TEXT_JUSTIFY_CENTER" color="0xFFFFFF" />
 
     <label id="HRIconR" x="76" y="32" font="@Fonts.id_icons" justification="Graphics.TEXT_JUSTIFY_LEFT" color="0xFF0000" />
-    <label id="HRIconW" x="76" y="32" font="@Fonts.id_icons" justification="Graphics.TEXT_JUSTIFY_LEFT" color="0xFFFFFF" />
+    <label id="HRIconW" x="76" y="32" font="@Fonts.id_icons" justification="Graphics.TEXT_JUSTIFY_LEFT" color="0x333333" />
     <label id="WindIcon" x="177" y="32" font="@Fonts.id_icons" justification="Graphics.TEXT_JUSTIFY_CENTER" color="0xFFFFFF" />
     <label id="MoonLabel" x="27" y="60" font="@Fonts.id_moon" justification="Graphics.TEXT_JUSTIFY_LEFT" color="0xFFFFFF" />
     <label id="HRLabel" x="86" y="60" font="@Fonts.id_led" justification="Graphics.TEXT_JUSTIFY_CENTER" color="0xFFFFFF" />

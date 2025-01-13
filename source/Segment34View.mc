@@ -91,7 +91,7 @@ class Segment34View extends WatchUi.WatchFace {
             hrIconR.setText("");
         }
         
-        hrIconW.setText("h");
+        hrIconW.setText("H");
     }
 
     hidden function setMoon(dc) as Void {
