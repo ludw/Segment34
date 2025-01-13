@@ -38,6 +38,14 @@ class Segment34View extends WatchUi.WatchFace {
         var clockTime = System.getClockTime();
         var now = Time.now().value();
 
+        var secLabel = View.findDrawableById("SecondsLabel") as Text;
+        if(isSleeping) {
+            secLabel.setText("");
+        } else {
+            var secString = Lang.format("$1$", [clockTime.sec.format("%02d")]);
+            secLabel.setText(secString);
+        }
+
         if(clockTime.sec % 2 == 0) {
             setHR(dc);
             setHRIcons(dc);
@@ -85,12 +93,12 @@ class Segment34View extends WatchUi.WatchFace {
         var hrIconW = View.findDrawableById("HRIconW") as Text;
         var hrIconR = View.findDrawableById("HRIconR") as Text;
 
-        if (!isSleeping) {
-            hrIconR.setText("H");
-            hrIconW.setText("h");
-        } else {
+        if (isSleeping) {
             hrIconR.setText("h");
             hrIconW.setText("H");
+        } else {
+            hrIconR.setText("H");
+            hrIconW.setText("h");
         }
         
     }
@@ -154,10 +162,6 @@ class Segment34View extends WatchUi.WatchFace {
         var windIcon = View.findDrawableById("WindIcon") as Text;
         var bearing = (Math.round((weather.windBearing.toFloat() + 180) / 45.0).toNumber() % 8).format(INTEGER_FORMAT);
         windIcon.setText(bearing);
-        
-        var wc = View.findDrawableById("WeatherCode") as Text;
-        var wcVal = weather.condition.format(INTEGER_FORMAT);
-        wc.setText(wcVal);
     }
 
     hidden function setWeatherIcon(dc) as Void {
