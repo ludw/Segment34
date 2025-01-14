@@ -214,10 +214,8 @@ class Segment34View extends WatchUi.WatchFace {
             default:
                 icon = Application.loadResource( Rez.Drawables.w_default ) as BitmapResource;
         }
-        dc.drawBitmap(100, 23, icon);
+        dc.drawBitmap((dc.getWidth() / 2) - 30, 23, icon);
 
-        var SunUpDownIcon = Application.loadResource( Rez.Drawables.sun_up_down ) as BitmapResource;
-        dc.drawBitmap(213, 62, SunUpDownIcon);
     }
 
     hidden function setSunUpDown(dc) as Void {
@@ -280,7 +278,7 @@ class Segment34View extends WatchUi.WatchFace {
             if(bb != null) {
                 batt = Math.round(bb.data * 0.80);
                 dc.setColor(0x00AAFF, -1);
-                dc.fillRectangle(247, 91 + (80 - batt), 4, batt);
+                dc.fillRectangle(dc.getWidth() - 13, 91 + (80 - batt), 4, batt);
             }
             if(st != null) {
                 stress = Math.round(st.data * 0.80);

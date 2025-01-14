@@ -12,5 +12,4 @@
     <bitmap id="w_fog" filename="w_fog.png" />
     <bitmap id="w_thunder" filename="w_thunder.png" />
     <bitmap id="w_default" filename="w_default.png" />
-    <bitmap id="sun_up_down" filename="sun_up_down.png" />
 </drawables>
