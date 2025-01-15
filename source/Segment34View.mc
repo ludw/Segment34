@@ -127,8 +127,6 @@ class Segment34View extends WatchUi.WatchFace {
         }
 
         var hrLabel = View.findDrawableById("HRLabel") as Text;
-  
-        //value = System.getClockTime().sec.format(INTEGER_FORMAT);
         hrLabel.setText(value);
         hrLabel.draw(dc);
     }
@@ -136,8 +134,7 @@ class Segment34View extends WatchUi.WatchFace {
     hidden function setBatt(dc) as Void {
         var value = "";
         var sample = System.getSystemStats().batteryInDays;
-        //value = Lang.format("BATT: $1$ DAYS" ,[sample.format(INTEGER_FORMAT)]);
-        value = "";
+
         for(var i = 0; i < sample; i++) {
             value += "$";
         }
@@ -325,7 +322,6 @@ class Segment34View extends WatchUi.WatchFace {
     // Terminate any active timers and prepare for slow updates.
     function onEnterSleep() as Void {
         isSleeping = true;
-        //sleepUpdates = 2;
     }
 
     hidden function day_name(day_of_week) {
@@ -410,7 +406,7 @@ class Segment34View extends WatchUi.WatchFace {
         var lunar_cycle = 29.53;
         var phase = ((days_since_new_moon / lunar_cycle) * 100).toNumber() % 100;
         var into_cycle = (phase / 100.0) * lunar_cycle;
-        //into_cycle = time.sec % 30;
+
         if (into_cycle < 3) { // 2+1
             return "0";
         } else if (into_cycle < 6) { // 4
