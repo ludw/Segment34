@@ -220,6 +220,9 @@ class Segment34View extends WatchUi.WatchFace {
         var sunUpLabel = View.findDrawableById("SunUpLabel") as Text;
         var sunDownLabel = View.findDrawableById("SunDownLabel") as Text;
         var now = Time.now();
+        if(weather == null) {
+            return;
+        }
         var loc = weather.observationLocationPosition;
         if(loc == null) {
             return;
