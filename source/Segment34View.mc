@@ -58,7 +58,11 @@ class Segment34View extends WatchUi.WatchFace {
             setWeatherIcon(dc);
             return;
         }
-        var timeString = Lang.format("$1$:$2$", [clockTime.hour.format("%02d"), clockTime.min.format("%02d")]);
+        var hour = clockTime.hour;
+        if(!System.getDeviceSettings().is24Hour) {
+            hour = hour % 12;
+        }
+        var timeString = Lang.format("$1$:$2$", [hour.format("%02d"), clockTime.min.format("%02d")]);
         var timelabel = View.findDrawableById("TimeLabel") as Text;
         timelabel.setText(timeString);
         
@@ -275,15 +279,32 @@ class Segment34View extends WatchUi.WatchFace {
             var stIterator = Toybox.SensorHistory.getStressHistory({:period => 1});
             var bb = bbIterator.next();
             var st = stIterator.next();
+            var barTop = 91;
+            var fromEdge = 10;
+            var barWidth = 3;
+            var bbAdjustment = 0;
+            if(dc.getHeight() == 240) {
+                barTop = 81;
+                fromEdge = 6;
+                barWidth = 2;
+                bbAdjustment = 1;
+            }
+            if(dc.getHeight() == 280) {
+                fromEdge = 14;
+                barWidth = 4;
+                bbAdjustment = -1;
+            }
             if(bb != null) {
                 batt = Math.round(bb.data * 0.80);
+                batt = 80;
                 dc.setColor(0x00AAFF, -1);
-                dc.fillRectangle(dc.getWidth() - 13, 91 + (80 - batt), 4, batt);
+                dc.fillRectangle(dc.getWidth() - fromEdge - barWidth - bbAdjustment, barTop + (80 - batt), barWidth, batt);
             }
             if(st != null) {
                 stress = Math.round(st.data * 0.80);
+                stress = 80;
                 dc.setColor(0xFFAA00, -1);
-                dc.fillRectangle(10, 91 + (80 - stress), 4, stress);
+                dc.fillRectangle(fromEdge, barTop + (80 - stress), barWidth, stress);
             }
         }
     }
@@ -299,6 +320,9 @@ class Segment34View extends WatchUi.WatchFace {
         } else { 
             TTRReady.setText("");
             TTRDesc.setText("HOURS TO\nRECOVERY");
+            if(dc.getHeight() == 240) {
+                TTRDesc.setText("HRS TO\nRECOV.");
+            }
 
             var ttr = ActivityMonitor.getInfo().timeToRecovery.format("%03d");
             TTRLabel.setText(ttr);
@@ -306,6 +330,11 @@ class Segment34View extends WatchUi.WatchFace {
         
         var ActiveDesc = View.findDrawableById("ActiveDesc") as Text;
         ActiveDesc.setText("WEEKLY\nACTIVE MIN");
+
+        if(dc.getHeight() == 240) {
+            ActiveDesc.setText("WEEKLY\nMIN");
+        }
+
         var ActiveLabel = View.findDrawableById("ActiveLabel") as Text;
         var active = ActivityMonitor.getInfo().activeMinutesWeek.total.format("%03d");
         ActiveLabel.setText(active);
