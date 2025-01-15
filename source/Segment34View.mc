@@ -137,8 +137,7 @@ class Segment34View extends WatchUi.WatchFace {
 
     hidden function setBatt(dc) as Void {
         var value = "";
-        var sample = System.getSystemStats().batteryInDays;
-
+        var sample = System.getSystemStats().battery / 5;
         for(var i = 0; i < sample; i++) {
             value += "$";
         }
@@ -296,13 +295,11 @@ class Segment34View extends WatchUi.WatchFace {
             }
             if(bb != null) {
                 batt = Math.round(bb.data * 0.80);
-                batt = 80;
                 dc.setColor(0x00AAFF, -1);
                 dc.fillRectangle(dc.getWidth() - fromEdge - barWidth - bbAdjustment, barTop + (80 - batt), barWidth, batt);
             }
             if(st != null) {
                 stress = Math.round(st.data * 0.80);
-                stress = 80;
                 dc.setColor(0xFFAA00, -1);
                 dc.fillRectangle(fromEdge, barTop + (80 - stress), barWidth, stress);
             }
