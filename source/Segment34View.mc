@@ -151,21 +151,26 @@ class Segment34View extends WatchUi.WatchFace {
         lastCondition = weather.condition;
         if(lastCondition == null) { return; }
 
-        var tempUnit = System.getDeviceSettings().temperatureUnits;
-        var temp = weather.temperature;
-        var tempLabel = View.findDrawableById("TempLabel") as Text;
-        if(tempUnit != System.UNIT_METRIC) {
-            temp = (temp * 9/5) + 32;
+        if(weather.temperature != null) {
+            var tempUnit = System.getDeviceSettings().temperatureUnits;
+            var temp = weather.temperature;
+            var tempLabel = View.findDrawableById("TempLabel") as Text;
+            if(tempUnit != System.UNIT_METRIC) {
+                temp = (temp * 9/5) + 32;
+            }
+            tempLabel.setText(temp.format(INTEGER_FORMAT));
         }
-        tempLabel.setText(temp.format(INTEGER_FORMAT));
-
-        var wind = weather.windSpeed.format(INTEGER_FORMAT);
+        
         var windLabel = View.findDrawableById("WindLabel") as Text;
-        windLabel.setText(wind);
+        if(weather.windSpeed != null) {
+            windLabel.setText(weather.windSpeed.format(INTEGER_FORMAT));
+        }
 
-        var windIcon = View.findDrawableById("WindIcon") as Text;
-        var bearing = (Math.round((weather.windBearing.toFloat() + 180) / 45.0).toNumber() % 8).format(INTEGER_FORMAT);
-        windIcon.setText(bearing);
+        if(weather.windBearing != null) {
+            var windIcon = View.findDrawableById("WindIcon") as Text;
+            var bearing = (Math.round((weather.windBearing.toFloat() + 180) / 45.0).toNumber() % 8).format(INTEGER_FORMAT);
+            windIcon.setText(bearing);
+        }
     }
 
     hidden function setWeatherIcon(dc) as Void {
@@ -310,6 +315,7 @@ class Segment34View extends WatchUi.WatchFace {
         var TTRDesc = View.findDrawableById("TTRDesc") as Text;
         var TTRLabel = View.findDrawableById("TTRLabel") as Text;
         var TTRReady = View.findDrawableById("TTRReady") as Text;
+
         if(ActivityMonitor.getInfo().timeToRecovery == null || ActivityMonitor.getInfo().timeToRecovery == 0) {
             TTRReady.setText("FULLY\nRECOVERED");
             TTRLabel.setText("");
@@ -333,8 +339,11 @@ class Segment34View extends WatchUi.WatchFace {
         }
 
         var ActiveLabel = View.findDrawableById("ActiveLabel") as Text;
-        var active = ActivityMonitor.getInfo().activeMinutesWeek.total.format("%03d");
-        ActiveLabel.setText(active);
+        if(ActivityMonitor.getInfo().activeMinutesWeek != null) {
+            var active = ActivityMonitor.getInfo().activeMinutesWeek.total.format("%03d");
+            ActiveLabel.setText(active);
+        }
+
     }
 
     // Called when this View is removed from the screen. Save the
