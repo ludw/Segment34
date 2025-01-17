@@ -179,11 +179,28 @@ class Segment34View extends WatchUi.WatchFace {
         if(lastCondition == null) {
             return;
         }
+/*
+
+Remaining weathers:
+
+CONDITION_WINDY
+CONDITION_ICE
+CONDITION_SQUALL
+CONDITION_FLURRIES
+CONDITION_FREEZING_RAIN
+CONDITION_ICE_SNOW
+
+*/
+
 
         switch(lastCondition) {
+            case Weather.CONDITION_MOSTLY_CLEAR:
             case Weather.CONDITION_CLEAR:
                 icon = Application.loadResource( Rez.Drawables.w_clear ) as BitmapResource;
                 break;
+            case Weather.CONDITION_FAIR:
+            case Weather.CONDITION_THIN_CLOUDS:
+            case Weather.CONDITION_PARTLY_CLEAR:
             case Weather.CONDITION_PARTLY_CLOUDY:
                 icon = Application.loadResource( Rez.Drawables.w_partly_cloudy ) as BitmapResource;
                 break;
@@ -193,29 +210,73 @@ class Segment34View extends WatchUi.WatchFace {
             case Weather.CONDITION_CLOUDY:
                 icon = Application.loadResource( Rez.Drawables.w_cloudy ) as BitmapResource;
                 break;
+            case Weather.CONDITION_CLOUDY_CHANCE_OF_RAIN:
+            case Weather.CONDITION_CHANCE_OF_SHOWERS:
+            case Weather.CONDITION_SHOWERS:
+            case Weather.CONDITION_SCATTERED_SHOWERS:
+            case Weather.CONDITION_UNKNOWN_PRECIPITATION:
             case Weather.CONDITION_RAIN:
                 icon = Application.loadResource( Rez.Drawables.w_rain ) as BitmapResource;
                 break;
+            case Weather.CONDITION_LIGHT_SHOWERS:
+            case Weather.CONDITION_DRIZZLE:
             case Weather.CONDITION_LIGHT_RAIN:
                 icon = Application.loadResource( Rez.Drawables.w_light_rain ) as BitmapResource;
-            break;
-                case Weather.CONDITION_HEAVY_RAIN:
+                break;
+            case Weather.CONDITION_HEAVY_SHOWERS:
+            case Weather.CONDITION_HEAVY_RAIN:
                 icon = Application.loadResource( Rez.Drawables.w_heavy_rain ) as BitmapResource;
                 break;
+            case Weather.CONDITION_CLOUDY_CHANCE_OF_RAIN_SNOW:
+            case Weather.CONDITION_CHANCE_OF_RAIN_SNOW:
+            case Weather.CONDITION_LIGHT_RAIN_SNOW:
+            case Weather.CONDITION_HEAVY_RAIN_SNOW:
+            case Weather.CONDITION_SLEET:
+            case Weather.CONDITION_WINTRY_MIX:
+            case Weather.CONDITION_RAIN_SNOW:
+                icon = Application.loadResource( Rez.Drawables.w_rain_snow ) as BitmapResource;
+                break;
+            case Weather.CONDITION_CLOUDY_CHANCE_OF_SNOW:
+            case Weather.CONDITION_CHANCE_OF_SNOW:
+            case Weather.CONDITION_FLURRIES:
             case Weather.CONDITION_SNOW:
                 icon = Application.loadResource( Rez.Drawables.w_snow ) as BitmapResource;
                 break;
             case Weather.CONDITION_LIGHT_SNOW:
                 icon = Application.loadResource( Rez.Drawables.w_light_snow ) as BitmapResource;
                 break;
+            case Weather.CONDITION_HEAVY_SNOW:
+                icon = Application.loadResource( Rez.Drawables.w_heavy_snow ) as BitmapResource;
+                break;
+            case Weather.CONDITION_MIST:
             case Weather.CONDITION_FOG:
                 icon = Application.loadResource( Rez.Drawables.w_fog ) as BitmapResource;
                 break;
+            case Weather.CONDITION_HAZY:
+            case Weather.CONDITION_HAZE:
+                icon = Application.loadResource( Rez.Drawables.w_haze ) as BitmapResource;
+                break;
+            case Weather.CONDITION_VOLCANIC_ASH:
+            case Weather.CONDITION_SMOKE:
+            case Weather.CONDITION_SAND:
+            case Weather.CONDITION_SANDSTORM:
+            case Weather.CONDITION_DUST:
+                icon = Application.loadResource( Rez.Drawables.w_dust ) as BitmapResource;
+                break;
+            case Weather.CONDITION_HAIL:
+                icon = Application.loadResource( Rez.Drawables.w_hail ) as BitmapResource;
+                break;
             case Weather.CONDITION_THUNDERSTORMS:
+            case Weather.CONDITION_SCATTERED_THUNDERSTORMS:
+            case Weather.CONDITION_CHANCE_OF_THUNDERSTORMS:
                 icon = Application.loadResource( Rez.Drawables.w_thunder ) as BitmapResource;
                 break;
-            case Weather.CONDITION_SCATTERED_THUNDERSTORMS:
-                icon = Application.loadResource( Rez.Drawables.w_thunder ) as BitmapResource;
+            case Weather.CONDITION_TROPICAL_STORM:
+            case Weather.CONDITION_HURRICANE:
+                icon = Application.loadResource( Rez.Drawables.w_hurricane ) as BitmapResource;
+                break;
+            case Weather.CONDITION_TORNADO:
+                icon = Application.loadResource( Rez.Drawables.w_tornado ) as BitmapResource;
                 break;
             default:
                 icon = Application.loadResource( Rez.Drawables.w_default ) as BitmapResource;
