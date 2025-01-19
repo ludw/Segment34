@@ -23,7 +23,9 @@
     <label id="TTRDesc" x="90" y="205" font="@Fonts.id_xsmol" justification="Graphics.TEXT_JUSTIFY_LEFT" color="0x005555" />
     <label id="TTRReady" x="84" y="200" font="@Fonts.id_smol" justification="Graphics.TEXT_JUSTIFY_CENTER" color="0x55AAAA" />
     <label id="StepLabel" x="center" y="235" font="@Fonts.id_led" justification="Graphics.TEXT_JUSTIFY_CENTER" color="0xFFFFFF" />
-    <label id="ActiveLabel" x="195" y="200" font="@Fonts.id_led" justification="Graphics.TEXT_JUSTIFY_LEFT" color="0xFFFFFF" />
+
+    <label id="ActiveLabel" x="248" y="200" font="@Fonts.id_led" justification="Graphics.TEXT_JUSTIFY_RIGHT" color="0xFFFFFF" />
     <label id="ActiveDesc" x="190" y="205" font="@Fonts.id_xsmol" justification="Graphics.TEXT_JUSTIFY_RIGHT" color="0x005555" />
+
     <label id="BattLabel" x="center" y="260" font="@Fonts.id_xsmol" justification="Graphics.TEXT_JUSTIFY_CENTER" color="0x00FF00" />
 </layout>
