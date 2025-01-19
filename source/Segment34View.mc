@@ -401,8 +401,14 @@ CONDITION_ICE_SNOW
         }
 
         var ActiveLabel = View.findDrawableById("ActiveLabel") as Text;
+        var active = "";
         if(ActivityMonitor.getInfo().activeMinutesWeek != null) {
-            var active = ActivityMonitor.getInfo().activeMinutesWeek.total.format("%03d");
+            if(ActivityMonitor.getInfo().activeMinutesWeek.total > 999) {
+                active = ActivityMonitor.getInfo().activeMinutesWeek.total.format("%04d");
+                ActiveDesc.setText("");
+            } else {
+                active = ActivityMonitor.getInfo().activeMinutesWeek.total.format("%03d");
+            }            
             ActiveLabel.setText(active);
         }
 
