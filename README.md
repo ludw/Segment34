@@ -19,6 +19,9 @@ The watchface features the following:
  
  The watchface have no settings screen and is currently not published to the IQ Connect store.
 
+## Buy me a coffee (if you want to)
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/M4M51A1RGV)
+
 ## Builds
  There are pre-made builds for compatible watches in the builds folder.
 
