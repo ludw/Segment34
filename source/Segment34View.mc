@@ -8,6 +8,7 @@ import Toybox.Weather;
 import Toybox.Time;
 import Toybox.Math;
 import Toybox.SensorHistory;
+import Toybox.Position;
 
 const INTEGER_FORMAT = "%d";
 
@@ -505,34 +506,62 @@ CONDITION_ICE_SNOW
 		return false;
 	}
 
-    hidden function moon_phase(time) {
-        var jd = julian_day(time.year, time.month, time.day);
+    hidden function flipMoonCodeForSouthernHemisphere(code as String) as String {
+        switch (code) {
+            // Waxing ↔ Waning flips
+            case "1": return "7"; // waxing crescent ↔ waning crescent
+            case "2": return "6"; // first quarter ↔ last quarter
+            case "3": return "5"; // waxing gibbous ↔ waning gibbous
+            case "5": return "3";
+            case "6": return "2";
+            case "7": return "1";
+            // “0” (new) and “4” (full) look the same from both hemispheres
+            default:  return code;
+        }
+    }
 
-        var days_since_new_moon = jd - 2459966;
+    hidden function moon_phase(time) as String {
+        // 1) Calculate the Northern Hemisphere moon code exactly as before
+        var jd = julian_day(time.year, time.month, time.day);
+        var days_since_new_moon = jd - 2459966; 
         var lunar_cycle = 29.53;
         var phase = ((days_since_new_moon / lunar_cycle) * 100).toNumber() % 100;
         var into_cycle = (phase / 100.0) * lunar_cycle;
 
-        if (into_cycle < 3) { // 2+1
-            return "0";
-        } else if (into_cycle < 6) { // 4
-            return "1";
-        } else if (into_cycle < 10) { // 4
-            return "2";
-        } else if (into_cycle < 14) { // 4
-            return "3";
-        } else if (into_cycle < 18) { // 4
-            return "4";
-        } else if (into_cycle < 22) { // 4
-            return "5";
-        } else if (into_cycle < 26) { // 4
-            return "6";
-        } else if (into_cycle < 29) { // 3
-            return "7";
+        // Determine the raw code (0..7) for the “Northern Hemisphere” shape
+        var rawCode = "";
+        if (into_cycle < 3) {
+            rawCode = "0"; // new
+        } else if (into_cycle < 6) {
+            rawCode = "1"; // waxing crescent
+        } else if (into_cycle < 10) {
+            rawCode = "2"; // first quarter
+        } else if (into_cycle < 14) {
+            rawCode = "3"; // waxing gibbous
+        } else if (into_cycle < 18) {
+            rawCode = "4"; // full
+        } else if (into_cycle < 22) {
+            rawCode = "5"; // waning gibbous
+        } else if (into_cycle < 26) {
+            rawCode = "6"; // last quarter
+        } else if (into_cycle < 29) {
+            rawCode = "7"; // waning crescent
         } else {
-            return "0";
+            rawCode = "0"; // new again
         }
 
-    }
+        // 2) Check if user is in Southern Hemisphere
+        var positionInfo = Position.getInfo();
+        if (positionInfo != null && positionInfo.position != null) {
+            var coords = positionInfo.position.toDegrees();
+            var lat = coords[0];
+            if (lat < 0) {
+                // 3) Flip the shape codes. 
+                // Text (waxing/waning) does *not* need to be swapped, only the graphic side.
+                rawCode = flipMoonCodeForSouthernHemisphere(rawCode);
+            }
+        }
 
+        return rawCode;
+    }
 }
